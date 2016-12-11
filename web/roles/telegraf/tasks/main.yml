@@ -1,0 +1,26 @@
+---
+- name: Copy conf to docker
+  template:
+    src: "templates/telegraf.conf"
+    dest: "/tmp/telegraf.conf"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: telegraf
+  docker_container:
+    name: telegraf
+    image: cgeoffroy/telegraf
+    env:
+       HOST_PROC: /rootfs/proc
+       HOST_SYS: /rootfs/sys
+    state: started
+    network_mode: "host"
+    volumes:
+    - "/tmp/telegraf.conf:/telegraf.conf:ro"
+    - "/sys:/rootfs/sys:ro"
+    - "/proc:/rootfs/proc:ro"
+    - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    - "/var/run:/var/run:ro"
+    entrypoint: /bin/sh
+    command: -c "sleep 10s && exec /usr/local/bin/telegraf -config /telegraf.conf"

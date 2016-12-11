@@ -1,0 +1,6 @@
+---
+- name: Ensure Apache is running
+  service:
+    name: apache2
+    state: restarted
+    enabled: yes

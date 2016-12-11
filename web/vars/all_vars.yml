@@ -1,0 +1,6 @@
+domain: "test.local"
+database: "test"
+dbuser: "wpuser"
+dbpass: "wppass"
+unarc_path: "/var/www"
+www_path: "{{ unarc_path }}/wordpress"

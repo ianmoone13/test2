@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars/all_vars.yml
+  gather_facts: false
+
+  pre_tasks:
+  - raw: sudo apt-get -y install python-simplejson
+  - action: setup
+
+  - name: Update apt cache if needed.
+    apt: update_cache=yes cache_valid_time=3600
+
+  roles:
+    - mysql
+    - php
+    - apache2
+    - wordpress
+    - docker
+    - telegraf

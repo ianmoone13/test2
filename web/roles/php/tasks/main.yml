@@ -1,0 +1,13 @@
+---
+  - name: Install PHP5
+    apt: pkg={{ item }} state=latest
+    with_items:
+      - php
+      - php-common
+      - php-mysql
+      - php-cli
+      - php-curl
+      - php-gd
+      - php-dev
+      - php-mcrypt
+      - php-pear
