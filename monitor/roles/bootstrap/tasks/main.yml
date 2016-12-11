@@ -1,0 +1,29 @@
+---
+- name: Copy script to docker
+  template:
+    src: "templates/bootstrap.script"
+    dest: "/tmp/bootstrap.script"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy json to docker
+  template:
+    src: "templates/system.json"
+    dest: "/tmp/system.json"
+    owner: root
+    group: root
+    mode: 0644
+
+
+- name: bootstrap
+  docker_container:
+    name: bootstrap
+    image: alpine:latest
+    links:
+      - "grafana:grafana"
+    volumes:
+      - "/tmp/bootstrap.script:/bootstrap.script:ro"
+      - "/tmp/system.json:/system.json:ro"
+    command: -c "sleep 10s && exec /bin/sh /bootstrap.script"
+    entrypoint: /bin/sh

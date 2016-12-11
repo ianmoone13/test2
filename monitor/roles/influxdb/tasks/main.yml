@@ -1,0 +1,13 @@
+---
+- name: InfluxDB
+  docker_container:
+    name: influxdb
+    image: tutum/influxdb:0.9
+    ports:
+      - "8086:8086"
+      - "8083:8083"
+    env:
+      PRE_CREATE_DB: telegraf
+      ADMIN_USER: foobar
+      UXDB_INIT_PWD: foobar
+    state: started

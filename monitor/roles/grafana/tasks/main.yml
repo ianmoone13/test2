@@ -1,0 +1,13 @@
+---
+- name: grafana
+  docker_container:
+    name: grafana
+    image: grafana/grafana:2.5.0
+    ports:
+      - "3000:3000"
+    env:
+      GF_SECURITY_ADMIN_USER: foobar
+      GF_SECURITY_ADMIN_PASSWORD: foobar
+    links:
+      - "influxdb:influxdb"
+    state: started

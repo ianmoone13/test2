@@ -1,0 +1,6 @@
+---
+- name: Ensure Apache is running
+  service:
+    name: docker
+    state: restarted
+    enabled: yes
